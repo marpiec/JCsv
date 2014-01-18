@@ -1,6 +1,9 @@
 package pl.marpiec.jcsv.impl;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.nio.channels.IllegalSelectorException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -65,6 +68,17 @@ public class ObjectFromMapBuilder {
             return Short.parseShort(value);
         } else if (fieldType == byte.class || fieldType == Byte.class) {
             return Byte.parseByte(value);
+        } else if(fieldType.isEnum()) {
+            try {
+                final Method enumValueOfMethod = fieldType.getDeclaredMethod("valueOf", String.class);
+                return enumValueOfMethod.invoke(null, value);
+            } catch (NoSuchMethodException e) {
+                throw new IllegalStateException(e);
+            } catch (InvocationTargetException e) {
+                throw new IllegalStateException(e);
+            } catch (IllegalAccessException e) {
+                throw new IllegalStateException(e);
+            }
         } else {
             throw new IllegalStateException("Only primitive types, their wrappers and String are supported, found+" + fieldType);
         }
