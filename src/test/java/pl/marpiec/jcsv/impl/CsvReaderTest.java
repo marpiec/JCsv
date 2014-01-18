@@ -1,6 +1,7 @@
 package pl.marpiec.jcsv.impl;
 
 import org.testng.annotations.Test;
+import pl.marpiec.jcsv.JCsv;
 
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,7 @@ public class CsvReaderTest {
                 "mike,70,user\n";
 
         //when
-        final List<Map<String, String>> users = new CsvReader().read(csv);
+        final List<Map<String, String>> users = new JCsv().read(csv);
 
         //then
         assertThat(users).containsExactly(map("username", "marcin",     "age", "30",    "role", "admin"),
@@ -40,7 +41,7 @@ public class CsvReaderTest {
                 "mike,70,user\n";
 
         //when
-        final List<Map<String, String>> users = new CsvReader().read(csv);
+        final List<Map<String, String>> users = new JCsv().read(csv);
 
         //then
         assertThat(users).containsExactly(map("username", "marcin",     "age", "30",    "role", "admin, user"),
@@ -59,12 +60,48 @@ public class CsvReaderTest {
                 "mike,70,user\n";
 
         //when
-        final List<Map<String, String>> users = new CsvReader().read(csv);
+        final List<Map<String, String>> users = new JCsv().read(csv);
 
         //then
         assertThat(users).containsExactly(map("username", "marcin",                 "age", "30",    "role", "admin, user"),
                                           map("username", "john \"bond,rambo\"",         "age", "23",    "role", "admin, user"),
                                           map("username", "mike",                   "age", "70",    "role", "user"));
+    }
+
+    @Test
+    public void shouldParseSimpleCsvFileWithDifferentFileEndingsReturn() {
+
+        //given
+        final String csv = "username,age,role\n" +
+                "marcin,30,admin\r" +
+                "john,23,admin\r\n" +
+                "mike,70,user\n\r";
+
+        //when
+        final List<Map<String, String>> users = new JCsv().read(csv);
+
+        //then
+        assertThat(users).containsExactly(map("username", "marcin",     "age", "30",    "role", "admin"),
+                map("username", "john",       "age", "23",    "role", "admin"),
+                map("username", "mike",       "age", "70",    "role", "user"));
+    }
+
+    @Test
+    public void shouldParseSimpleCsvFileWithoutNewLineAtTheEnd() {
+
+        //given
+        final String csv = "username,age,role\n" +
+                "marcin,30,admin\r\n" +
+                "john,23,admin\n\r" +
+                "mike,70,user";
+
+        //when
+        final List<Map<String, String>> users = new JCsv().read(csv);
+
+        //then
+        assertThat(users).containsExactly(map("username", "marcin",     "age", "30",    "role", "admin"),
+                map("username", "john",       "age", "23",    "role", "admin"),
+                map("username", "mike",       "age", "70",    "role", "user"));
     }
 
 }

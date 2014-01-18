@@ -4,7 +4,13 @@ import java.util.*;
 
 public class CsvWriter {
 
-    private final String LINE_SEPARATOR = System.getProperty("line.separator");
+    private final char valueSeparator;
+    private final String lineSeparator;
+
+    public CsvWriter(char valueSeparator, String lineSeparator) {
+        this.valueSeparator = valueSeparator;
+        this.lineSeparator = lineSeparator;
+    }
 
     public String write(Iterable<Map<String, String>> values) {
 
@@ -36,29 +42,33 @@ public class CsvWriter {
         boolean notFirst = false;
         for(String key: keys) {
             if(notFirst) {
-                csv.append(',');
+                csv.append(valueSeparator);
             }
             notFirst = true;
             csv.append(escapeIfRequired(key));
         }
-        csv.append(LINE_SEPARATOR);
+        csv.append(lineSeparator);
     }
 
     private void writeRow(StringBuilder csv, List<String> keys, Map<String, String> row) {
         boolean notFirst = false;
         for(String key: keys) {
             if(notFirst) {
-                csv.append(',');
+                csv.append(valueSeparator);
             }
             notFirst = true;
-            csv.append(escapeIfRequired(row.get(key)));
+            final String value = row.get(key);
+            if(value!=null) {
+                csv.append(escapeIfRequired(value));
+            }
+
         }
-        csv.append(LINE_SEPARATOR);
+        csv.append(lineSeparator);
     }
 
 
     private String escapeIfRequired(String key) {
-        if(key.indexOf(',') >= 0 || key.indexOf('"') >= 0) {
+        if(key.indexOf(valueSeparator) >= 0 || key.indexOf('"') >= 0) {
             return "\""+key.replaceAll("\"", "\"\"\"")+"\"";
         } else {
             return key;
