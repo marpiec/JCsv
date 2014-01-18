@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ObjectBuilder {
+public class ObjectFromMapBuilder {
 
     private final ObjectConstructionUtil objectConstructionUtil = new ObjectConstructionUtil();
 

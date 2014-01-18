@@ -11,7 +11,6 @@ import static pl.marpiec.tests.TestUtils.map;
 
 public class CsvReaderTest {
 
-
     @Test
     public void shouldParseSimpleCsvFile() {
 

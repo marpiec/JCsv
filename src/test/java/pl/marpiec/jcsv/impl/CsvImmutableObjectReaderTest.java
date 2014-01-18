@@ -66,7 +66,7 @@ public class CsvImmutableObjectReaderTest {
                 "mike,70,user\n";
 
         //when
-        final List<ImmutableUser> users = new JCsv().read(csv, ImmutableUser.class);
+        final List<ImmutableUser> users = new JCsv().readObjects(csv, ImmutableUser.class);
 
         //then
         assertThat(users).containsExactly(new ImmutableUser("marcin", 30, "admin"),

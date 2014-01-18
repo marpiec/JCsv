@@ -3,13 +3,15 @@ package pl.marpiec.jcsv.impl;
 import org.testng.annotations.Test;
 import pl.marpiec.jcsv.JCsv;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
+import static pl.marpiec.tests.TestUtils.list;
 import static org.assertj.core.api.Assertions.assertThat;
-import static pl.marpiec.tests.TestUtils.map;
 
-public class CsvBeanReaderTest {
+public class CsvBeanWriterTest {
+
+    private final String LINE_SEPARATOR = System.getProperty("line.separator");
 
     private static class UserBean {
         private String username;
@@ -73,22 +75,44 @@ public class CsvBeanReaderTest {
 
 
     @Test
-    public void shouldParseSimpleCsvFileToProperBean() {
+    public void shouldWriteSimpleCsvFileFromProperBean() {
 
         //given
-        final String csv = "username,age,role\n" +
-                "marcin,30,admin\n" +
-                "john,23,admin\n" +
-                "mike,70,user\n";
+        final List<UserBean> users = list(UserBean.of("marcin", 30, "admin"),
+                UserBean.of("john", 23, "admin"),
+                UserBean.of("mike", 70, "user"));
 
         //when
-        final List<UserBean> users = new JCsv().readObjects(csv, UserBean.class);
+
+        final String csv = new JCsv().writeObjects(users);
 
         //then
-        assertThat(users).containsExactly(UserBean.of("marcin",     30, "admin"),
-                                          UserBean.of("john",       23, "admin"),
-                                          UserBean.of("mike",       70, "user"));
+        assertThat(csv).isEqualTo("age,role,username" + LINE_SEPARATOR +
+                "30,admin,marcin" + LINE_SEPARATOR +
+                "23,admin,john" + LINE_SEPARATOR +
+                "70,user,mike" + LINE_SEPARATOR);
     }
 
+    @Test
+    public void shouldWriteSimpleCsvFileFromProperBeanWithSelectedFields() {
+
+        //given
+        final List<UserBean> users = list(UserBean.of("marcin", 30, "admin"),
+                UserBean.of("john", 23, "admin"),
+                UserBean.of("mike", 70, "user"));
+
+        //when
+
+        List<String> keys = new ArrayList<String>();
+        keys.add("age");
+        keys.add("username");
+        final String csv = new JCsv().writeObjects(users, keys);
+
+        //then
+        assertThat(csv).isEqualTo("age,username" + LINE_SEPARATOR +
+                "30,marcin" +LINE_SEPARATOR +
+                "23,john" +LINE_SEPARATOR +
+                "70,mike" + LINE_SEPARATOR);
+    }
 
 }
