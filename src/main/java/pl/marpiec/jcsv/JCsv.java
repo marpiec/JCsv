@@ -38,11 +38,11 @@ public class JCsv {
     }
 
     public String write(List<Map<String, String>> values) {
-        return new CsvWriter(valueSeparator , lineSeparator).write(values);
+        return new CsvWriter(valueSeparator, lineSeparator).write(values);
     }
 
     public String write(List<Map<String, String>> values, List<String> keys) {
-        return new CsvWriter(valueSeparator , lineSeparator).write(values, keys);
+        return new CsvWriter(valueSeparator, lineSeparator).write(values, keys);
     }
 
     public <T> List<T> readObjects(String csv, Class<T> clazz) {
@@ -51,11 +51,11 @@ public class JCsv {
 
     public String writeObjects(List<?> values) {
         final List<Map<String, String>> maps = new MapFromObjectBuilder().buildList((List<Object>) values);
-        return new CsvWriter(valueSeparator , lineSeparator).write(maps);
+        return new CsvWriter(valueSeparator, lineSeparator).write(maps);
     }
 
     public String writeObjects(List<?> values, List<String> keys) {
         final List<Map<String, String>> maps = new MapFromObjectBuilder().buildList((List<Object>) values);
-        return new CsvWriter(valueSeparator , lineSeparator).write(maps, keys);
+        return new CsvWriter(valueSeparator, lineSeparator).write(maps, keys);
     }
 }

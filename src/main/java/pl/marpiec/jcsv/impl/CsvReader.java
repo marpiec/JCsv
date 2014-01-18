@@ -26,7 +26,7 @@ public class CsvReader {
         while (notCsvEnd(csv) && notLineEnd(csv)) {
             String word = getNextWord(csv);
             keys.add(word);
-            if (csv.charAt(textIndex)==valueSeparator) {
+            if (csv.charAt(textIndex) == valueSeparator) {
                 textIndex++;
             }
         }
@@ -34,10 +34,10 @@ public class CsvReader {
 
         while (textIndex < length) {
             Map<String, String> deserializedLine = new HashMap<String, String>(keys.size());
-            for(String key: keys) {
+            for (String key : keys) {
                 String word = getNextWord(csv);
                 deserializedLine.put(key, word);
-                if (notCsvEnd(csv) && csv.charAt(textIndex)==valueSeparator) {
+                if (notCsvEnd(csv) && csv.charAt(textIndex) == valueSeparator) {
                     textIndex++;
                 }
             }
@@ -53,7 +53,7 @@ public class CsvReader {
     private String getNextWord(String csv) {
         wordBuffer.setLength(0);
 
-        if (csv.charAt(textIndex)=='\"') {
+        if (csv.charAt(textIndex) == '\"') {
             textIndex++;
             while (notClosingQuote(csv)) {
                 wordBuffer.append(csv.charAt(textIndex));
@@ -61,7 +61,7 @@ public class CsvReader {
             }
             textIndex++;
         } else {
-            while (notCsvEnd(csv) && notLineEnd(csv) && csv.charAt(textIndex)!=valueSeparator) {
+            while (notCsvEnd(csv) && notLineEnd(csv) && csv.charAt(textIndex) != valueSeparator) {
                 wordBuffer.append(csv.charAt(textIndex));
                 textIndex++;
             }
@@ -72,12 +72,11 @@ public class CsvReader {
     }
 
 
-
     private boolean notLineEnd(String csv) {
-        if(csv.charAt(textIndex)=='\n' || csv.charAt(textIndex)=='\r') {
-            if(csv.length() > textIndex + 1) {
-                if(csv.charAt(textIndex + 1)=='\n' || csv.charAt(textIndex + 1)=='\r') {
-                   textIndex++;
+        if (csv.charAt(textIndex) == '\n' || csv.charAt(textIndex) == '\r') {
+            if (csv.length() > textIndex + 1) {
+                if (csv.charAt(textIndex + 1) == '\n' || csv.charAt(textIndex + 1) == '\r') {
+                    textIndex++;
                 }
             }
             return false;
@@ -87,8 +86,8 @@ public class CsvReader {
     }
 
     private boolean notClosingQuote(String csv) {
-        if(csv.charAt(textIndex) == '\"') {
-            if(csv.charAt(textIndex+1) == '\"' && csv.charAt(textIndex+2) == '\"') {
+        if (csv.charAt(textIndex) == '\"') {
+            if (csv.charAt(textIndex + 1) == '\"' && csv.charAt(textIndex + 2) == '\"') {
                 textIndex += 2;
                 return true;
             } else {

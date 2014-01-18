@@ -6,8 +6,8 @@ import pl.marpiec.jcsv.JCsv;
 import java.util.ArrayList;
 import java.util.List;
 
-import static pl.marpiec.tests.TestUtils.list;
 import static org.assertj.core.api.Assertions.assertThat;
+import static pl.marpiec.tests.TestUtils.list;
 
 public class CsvBeanWriterTest {
 
@@ -110,8 +110,8 @@ public class CsvBeanWriterTest {
 
         //then
         assertThat(csv).isEqualTo("age,username" + LINE_SEPARATOR +
-                "30,marcin" +LINE_SEPARATOR +
-                "23,john" +LINE_SEPARATOR +
+                "30,marcin" + LINE_SEPARATOR +
+                "23,john" + LINE_SEPARATOR +
                 "70,mike" + LINE_SEPARATOR);
     }
 

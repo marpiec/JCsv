@@ -4,10 +4,8 @@ import org.testng.annotations.Test;
 import pl.marpiec.jcsv.JCsv;
 
 import java.util.List;
-import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static pl.marpiec.tests.TestUtils.map;
 
 public class CsvBeanReaderTest {
 
@@ -85,9 +83,9 @@ public class CsvBeanReaderTest {
         final List<UserBean> users = new JCsv().readObjects(csv, UserBean.class);
 
         //then
-        assertThat(users).containsExactly(UserBean.of("marcin",     30, "admin"),
-                                          UserBean.of("john",       23, "admin"),
-                                          UserBean.of("mike",       70, "user"));
+        assertThat(users).containsExactly(UserBean.of("marcin", 30, "admin"),
+                UserBean.of("john", 23, "admin"),
+                UserBean.of("mike", 70, "user"));
     }
 
 

@@ -13,7 +13,7 @@ public class ObjectFromMapBuilder {
 
         final List<T> resultList = new ArrayList<T>(maps.size());
 
-        for(Map<String, String> row: maps) {
+        for (Map<String, String> row : maps) {
             resultList.add(build(row, clazz));
         }
 

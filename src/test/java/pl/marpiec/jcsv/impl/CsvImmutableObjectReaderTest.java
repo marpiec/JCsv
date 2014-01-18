@@ -41,7 +41,8 @@ public class CsvImmutableObjectReaderTest {
 
             if (age != immutableUser.age) return false;
             if (role != null ? !role.equals(immutableUser.role) : immutableUser.role != null) return false;
-            if (username != null ? !username.equals(immutableUser.username) : immutableUser.username != null) return false;
+            if (username != null ? !username.equals(immutableUser.username) : immutableUser.username != null)
+                return false;
 
             return true;
         }
@@ -70,8 +71,8 @@ public class CsvImmutableObjectReaderTest {
 
         //then
         assertThat(users).containsExactly(new ImmutableUser("marcin", 30, "admin"),
-                                          new ImmutableUser("john", 23, "admin"),
-                                          new ImmutableUser("mike", 70, "user"));
+                new ImmutableUser("john", 23, "admin"),
+                new ImmutableUser("mike", 70, "user"));
     }
 
 

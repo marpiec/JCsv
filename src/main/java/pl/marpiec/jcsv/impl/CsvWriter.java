@@ -15,7 +15,7 @@ public class CsvWriter {
     public String write(Iterable<Map<String, String>> values) {
 
         Set<String> keys = new HashSet<String>();
-        for(Map<String, String> row: values) {
+        for (Map<String, String> row : values) {
             keys.addAll(row.keySet());
         }
 
@@ -31,7 +31,7 @@ public class CsvWriter {
 
         writeHeader(csv, keys);
 
-        for(Map<String, String> row: values) {
+        for (Map<String, String> row : values) {
             writeRow(csv, keys, row);
         }
 
@@ -40,8 +40,8 @@ public class CsvWriter {
 
     private void writeHeader(StringBuilder csv, List<String> keys) {
         boolean notFirst = false;
-        for(String key: keys) {
-            if(notFirst) {
+        for (String key : keys) {
+            if (notFirst) {
                 csv.append(valueSeparator);
             }
             notFirst = true;
@@ -52,13 +52,13 @@ public class CsvWriter {
 
     private void writeRow(StringBuilder csv, List<String> keys, Map<String, String> row) {
         boolean notFirst = false;
-        for(String key: keys) {
-            if(notFirst) {
+        for (String key : keys) {
+            if (notFirst) {
                 csv.append(valueSeparator);
             }
             notFirst = true;
             final String value = row.get(key);
-            if(value!=null) {
+            if (value != null) {
                 csv.append(escapeIfRequired(value));
             }
 
@@ -68,8 +68,8 @@ public class CsvWriter {
 
 
     private String escapeIfRequired(String key) {
-        if(key.indexOf(valueSeparator) >= 0 || key.indexOf('"') >= 0) {
-            return "\""+key.replaceAll("\"", "\"\"\"")+"\"";
+        if (key.indexOf(valueSeparator) >= 0 || key.indexOf('"') >= 0) {
+            return "\"" + key.replaceAll("\"", "\"\"\"") + "\"";
         } else {
             return key;
         }

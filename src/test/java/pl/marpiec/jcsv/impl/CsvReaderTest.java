@@ -6,7 +6,7 @@ import pl.marpiec.jcsv.JCsv;
 import java.util.List;
 import java.util.Map;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static pl.marpiec.tests.TestUtils.map;
 
 public class CsvReaderTest {
@@ -24,9 +24,9 @@ public class CsvReaderTest {
         final List<Map<String, String>> users = new JCsv().read(csv);
 
         //then
-        assertThat(users).containsExactly(map("username", "marcin",     "age", "30",    "role", "admin"),
-                                          map("username", "john",       "age", "23",    "role", "admin"),
-                                          map("username", "mike",       "age", "70",    "role", "user"));
+        assertThat(users).containsExactly(map("username", "marcin", "age", "30", "role", "admin"),
+                map("username", "john", "age", "23", "role", "admin"),
+                map("username", "mike", "age", "70", "role", "user"));
     }
 
 
@@ -43,9 +43,9 @@ public class CsvReaderTest {
         final List<Map<String, String>> users = new JCsv().read(csv);
 
         //then
-        assertThat(users).containsExactly(map("username", "marcin",     "age", "30",    "role", "admin, user"),
-                map("username", "john",       "age", "23",    "role", "admin, user"),
-                map("username", "mike",       "age", "70",    "role", "user"));
+        assertThat(users).containsExactly(map("username", "marcin", "age", "30", "role", "admin, user"),
+                map("username", "john", "age", "23", "role", "admin, user"),
+                map("username", "mike", "age", "70", "role", "user"));
     }
 
 
@@ -62,9 +62,9 @@ public class CsvReaderTest {
         final List<Map<String, String>> users = new JCsv().read(csv);
 
         //then
-        assertThat(users).containsExactly(map("username", "marcin",                 "age", "30",    "role", "admin, user"),
-                                          map("username", "john \"bond,rambo\"",         "age", "23",    "role", "admin, user"),
-                                          map("username", "mike",                   "age", "70",    "role", "user"));
+        assertThat(users).containsExactly(map("username", "marcin", "age", "30", "role", "admin, user"),
+                map("username", "john \"bond,rambo\"", "age", "23", "role", "admin, user"),
+                map("username", "mike", "age", "70", "role", "user"));
     }
 
     @Test
@@ -80,9 +80,9 @@ public class CsvReaderTest {
         final List<Map<String, String>> users = new JCsv().read(csv);
 
         //then
-        assertThat(users).containsExactly(map("username", "marcin",     "age", "30",    "role", "admin"),
-                map("username", "john",       "age", "23",    "role", "admin"),
-                map("username", "mike",       "age", "70",    "role", "user"));
+        assertThat(users).containsExactly(map("username", "marcin", "age", "30", "role", "admin"),
+                map("username", "john", "age", "23", "role", "admin"),
+                map("username", "mike", "age", "70", "role", "user"));
     }
 
     @Test
@@ -98,9 +98,9 @@ public class CsvReaderTest {
         final List<Map<String, String>> users = new JCsv().read(csv);
 
         //then
-        assertThat(users).containsExactly(map("username", "marcin",     "age", "30",    "role", "admin"),
-                map("username", "john",       "age", "23",    "role", "admin"),
-                map("username", "mike",       "age", "70",    "role", "user"));
+        assertThat(users).containsExactly(map("username", "marcin", "age", "30", "role", "admin"),
+                map("username", "john", "age", "23", "role", "admin"),
+                map("username", "mike", "age", "70", "role", "user"));
     }
 
 }

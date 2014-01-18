@@ -13,7 +13,7 @@ public class MapFromObjectBuilder {
     public List<Map<String, String>> buildList(List<Object> objects) {
         final List<Map<String, String>> resultList = new ArrayList<Map<String, String>>(objects.size());
 
-        for(Object object: objects) {
+        for (Object object : objects) {
             resultList.add(build(object));
         }
 

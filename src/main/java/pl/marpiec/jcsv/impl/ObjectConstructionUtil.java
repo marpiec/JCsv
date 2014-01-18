@@ -9,17 +9,19 @@ public class ObjectConstructionUtil {
 
     /**
      * Creates instance of Array of elements of given type.
+     *
      * @param elementsType type of elements
-     * @param size size of the created array
+     * @param size         size of the created array
      * @return created Array object
      */
-    Object[] createArrayInstance(Class<?> elementsType , int size) {
+    Object[] createArrayInstance(Class<?> elementsType, int size) {
         return (Object[]) java.lang.reflect.Array.newInstance(elementsType, size);
     }
 
 
     /**
      * Creates instance of the given class.
+     *
      * @param clazz type of object o create
      * @return created object
      */
