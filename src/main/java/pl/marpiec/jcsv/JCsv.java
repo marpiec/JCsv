@@ -2,6 +2,7 @@ package pl.marpiec.jcsv;
 
 import pl.marpiec.jcsv.impl.CsvReader;
 import pl.marpiec.jcsv.impl.CsvWriter;
+import pl.marpiec.jcsv.impl.ObjectBuilder;
 
 import java.util.List;
 import java.util.Map;
@@ -43,4 +44,15 @@ public class JCsv {
         return new CsvWriter(valueSeparator , lineSeparator).write(values, keys);
     }
 
+    public <T> List<T> read(String csv, Class<T> clazz) {
+        return new ObjectBuilder().build(read(csv), clazz);
+    }
+
+//    public String write(List<Map<String, String>> values) {
+//        return new CsvWriter(valueSeparator , lineSeparator).write(values);
+//    }
+//
+//    public String write(List<Map<String, String>> values, List<String> keys) {
+//        return new CsvWriter(valueSeparator , lineSeparator).write(values, keys);
+//    }
 }
