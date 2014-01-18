@@ -9,8 +9,8 @@ public class CsvReader {
 
     private final char valueSeparator;
 
-    private static StringBuilder wordBuffer = new StringBuilder();
-    private static int textIndex = 0;
+    private final StringBuilder wordBuffer = new StringBuilder();
+    private int textIndex = 0;
 
     public CsvReader(char valueSeparator) {
         this.valueSeparator = valueSeparator;
@@ -32,7 +32,9 @@ public class CsvReader {
         }
         textIndex++;
 
-        while (textIndex < length) {
+        boolean lastCharLineDelimiter = csv.charAt(length - 1) == '\n' || csv.charAt(length - 1) == '\r';
+
+        while (textIndex < length && !(lastCharLineDelimiter && textIndex + 1 >= length)) {
             Map<String, String> deserializedLine = new HashMap<String, String>(keys.size());
             for (String key : keys) {
                 String word = getNextWord(csv);

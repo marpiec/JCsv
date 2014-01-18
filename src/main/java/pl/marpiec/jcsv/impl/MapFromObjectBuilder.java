@@ -1,5 +1,7 @@
 package pl.marpiec.jcsv.impl;
 
+import pl.marpiec.jcsv.TypeConverter;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,7 +10,12 @@ import java.util.Map;
 
 public class MapFromObjectBuilder {
 
+    private final Map<Class<?>, TypeConverter> converters;
     private final Map<Class<?>, Field[]> fieldCache = new HashMap<Class<?>, Field[]>();
+
+    public MapFromObjectBuilder(Map<Class<?>, TypeConverter> converters) {
+        this.converters = converters;
+    }
 
     public List<Map<String, String>> buildList(List<Object> objects) {
         final List<Map<String, String>> resultList = new ArrayList<Map<String, String>>(objects.size());
@@ -35,7 +42,15 @@ public class MapFromObjectBuilder {
                 if (!accessible) {
                     field.setAccessible(false);
                 }
-                resultMap.put(field.getName(), value.toString());
+                final String stringValue;
+                if(converters.containsKey(field.getType())) {
+                    stringValue = converters.get(field.getType()).write(value);
+                } else {
+                    stringValue = value.toString();
+                }
+
+
+                resultMap.put(field.getName(), stringValue);
             }
             return resultMap;
         } catch (IllegalAccessException e) {

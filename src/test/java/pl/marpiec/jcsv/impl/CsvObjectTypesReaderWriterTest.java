@@ -132,8 +132,8 @@ public class CsvObjectTypesReaderWriterTest {
         final String csv = new JCsv().writeObjects(objects);
 
         //then
-        assertThat(csv).isEqualTo("primitiveBoolean,primitiveByte,primitiveDouble,primitiveFloat,primitiveInt,primitiveLong,primitiveShort,stringValue,wrappedBoolean,wrappedByte,wrappedDouble,wrappedFloat,wrappedInt,wrappedLong,wrappedShort,enumValue" + LINE_SEPARATOR +
-                "true,7,1.2,11.1,1,3000,9,marcin,false,8,2.3,14.6,2,4000,10,user" + LINE_SEPARATOR);
+        assertThat(csv).isEqualTo("enumValue,primitiveBoolean,primitiveByte,primitiveDouble,primitiveFloat,primitiveInt,primitiveLong,primitiveShort,stringValue,wrappedBoolean,wrappedByte,wrappedDouble,wrappedFloat,wrappedInt,wrappedLong,wrappedShort" + LINE_SEPARATOR +
+                "user,true,7,1.2,11.1,1,3000,9,marcin,false,8,2.3,14.6,2,4000,10" + LINE_SEPARATOR);
 
     }
 

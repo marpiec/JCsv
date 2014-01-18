@@ -5,6 +5,7 @@ import pl.marpiec.jcsv.impl.CsvWriter;
 import pl.marpiec.jcsv.impl.MapFromObjectBuilder;
 import pl.marpiec.jcsv.impl.ObjectFromMapBuilder;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ public class JCsv {
 
     private final char valueSeparator;
     private final String lineSeparator;
+    private final Map<Class<?>, TypeConverter> converters = new HashMap<Class<?>, TypeConverter>();
 
     public JCsv() {
         this.valueSeparator = ',';
@@ -46,16 +48,20 @@ public class JCsv {
     }
 
     public <T> List<T> readObjects(String csv, Class<T> clazz) {
-        return new ObjectFromMapBuilder().build(read(csv), clazz);
+        return new ObjectFromMapBuilder(converters).build(read(csv), clazz);
     }
 
     public String writeObjects(List<?> values) {
-        final List<Map<String, String>> maps = new MapFromObjectBuilder().buildList((List<Object>) values);
+        final List<Map<String, String>> maps = new MapFromObjectBuilder(converters).buildList((List<Object>) values);
         return new CsvWriter(valueSeparator, lineSeparator).write(maps);
     }
 
     public String writeObjects(List<?> values, List<String> keys) {
-        final List<Map<String, String>> maps = new MapFromObjectBuilder().buildList((List<Object>) values);
+        final List<Map<String, String>> maps = new MapFromObjectBuilder(converters).buildList((List<Object>) values);
         return new CsvWriter(valueSeparator, lineSeparator).write(maps, keys);
+    }
+
+    public void addTypeConverter(TypeConverter typeConverter) {
+        converters.put(typeConverter.type(), typeConverter);
     }
 }

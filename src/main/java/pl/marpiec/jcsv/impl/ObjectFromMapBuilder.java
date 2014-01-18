@@ -1,16 +1,22 @@
 package pl.marpiec.jcsv.impl;
 
+import pl.marpiec.jcsv.TypeConverter;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.nio.channels.IllegalSelectorException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class ObjectFromMapBuilder {
 
+    private final Map<Class<?>, TypeConverter> converters;
     private final ObjectConstructionUtil objectConstructionUtil = new ObjectConstructionUtil();
+
+    public ObjectFromMapBuilder(Map<Class<?>, TypeConverter> converters) {
+        this.converters = converters;
+    }
 
     public <T> List<T> build(List<Map<String, String>> maps, Class<T> clazz) {
 
@@ -52,7 +58,13 @@ public class ObjectFromMapBuilder {
     }
 
     private Object convertToCorrectType(String value, Class<?> fieldType) {
-        if (fieldType == String.class) {
+        if(converters.containsKey(fieldType)) {
+            if(value==null || value.isEmpty()) {
+                return null;
+            } else {
+                return converters.get(fieldType).read(value);
+            }
+        } else if (fieldType == String.class) {
             return value;
         } else if (fieldType == int.class || fieldType == Integer.class) {
             return Integer.parseInt(value);
