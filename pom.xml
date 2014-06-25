@@ -2,11 +2,29 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>pl.marpiec</groupId>
-    <artifactId>JCsv</artifactId>
+    <groupId>pl.marpiec.jcsv</groupId>
+    <artifactId>jcsv-core</artifactId>
     <version>0.5.0</version>
+
+    <name>Java library for handling CSV documents.</name>
+    <url>https://github.com/marpiec/JCsv</url>
+
+    <developers>
+        <developer>
+            <name>Marcin Pieciukiewicz</name>
+            <url>http://mpieciukiewicz.pl</url>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
 
     <dependencies>
         <dependency>
@@ -26,33 +44,6 @@
             <version>1.6.1</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
-
-    <!-- Uncomment to check code coverage -->
-    <!--<build>-->
-        <!--<plugins>-->
-            <!--<plugin>-->
-                <!--<groupId>org.codehaus.mojo</groupId>-->
-                <!--<artifactId>cobertura-maven-plugin</artifactId>-->
-                <!--<version>2.5.2</version>-->
-                <!--<configuration>-->
-                    <!--<formats>-->
-                        <!--<format>html</format>-->
-                    <!--</formats>-->
-                <!--</configuration>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<phase>package</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>cobertura</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
-        <!--</plugins>-->
-    <!--</build>-->
-
-
 
 </project>
